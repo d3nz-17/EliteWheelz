@@ -61,15 +61,26 @@ server.post('/veiculo', async (req, resp) => {
     try{
 
         const veiculo = req.body;
-
+        
+        
         if(!veiculo.modelo)
         throw new Error ('Modelo é obrigaório!');
-
+        
         if(isNaN(veiculo.ano))
-            throw new Error("Ano inválido");
+        throw new Error("Ano inserido não é um número");
 
-            let r2 = await listarVeiculos(veiculo.placa);
-            if (r2.length != 0)
+        if(veiculo.ano > 2023 || veiculo.ano <= 0)
+            throw new Error("O ano precisa estar entre 0 e 2023")
+        
+        const tpVeiculo = req.body.tipo;
+
+        if(tpVeiculo != "Carro" && tpVeiculo != "Moto")
+            throw new Error("tipo de veículo inválido");
+        
+
+        let r2 = await busca(veiculo.placa);
+
+        if (r2.length != 0)
             throw new Error('Placa já cadastrada.');
 
 
