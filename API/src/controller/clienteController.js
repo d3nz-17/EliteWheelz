@@ -48,17 +48,6 @@ server.post('/cliente', async (req, resp) => {
     try {
         const cliente = req.body;
 
-        let nome = req.body.cliente;
-        let LC = await listarCliente();
-
-        console.log(LC);
-
-        let nominho = [];
-
-        nominho = LC.map(item => {item})
-
-        console.log(nominho);
-
         const clienteInserido = await inserirCliente(cliente);
 
         resp.send(clienteInserido);
