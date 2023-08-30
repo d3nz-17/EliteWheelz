@@ -72,12 +72,6 @@ server.post('/veiculo', async (req, resp) => {
         if(veiculo.ano > 2023 || veiculo.ano <= 0)
             throw new Error("O ano precisa estar entre 0 e 2023")
         
-        const tpVeiculo = req.body.tipo;
-
-        if(tpVeiculo != "Carro" && tpVeiculo != "Moto")
-            throw new Error("tipo de veículo inválido");
-        
-
         let r2 = await busca(veiculo.placa);
 
         if (r2.length != 0)
@@ -138,10 +132,23 @@ server.delete('/veiculo/:id', async (req, resp) => {
 
 server.put('/veiculo/:id', async(req, resp) => {
 
-    try{
-
+    try{        
         const veiculo = req.params.id;
         const novoVeiculo = req.body;
+        
+        if(!novoVeiculo.modelo)
+        throw new Error ('Modelo é obrigaório!');
+        
+        if(isNaN(novoVeiculo.ano))
+        throw new Error("Ano inserido não é um número");
+
+        if(novoVeiculo.ano > 2023 || veiculo.ano <= 0)
+            throw new Error("O ano precisa estar entre 0 e 2023")
+        
+        let r2 = await busca(novoVeiculo.placa);
+
+        if (r2.length != 0)
+            throw new Error('Placa já cadastrada.');
 
         const veiculoAlterado = editarVeiculo(novoVeiculo, veiculo);
         resp.send(200);

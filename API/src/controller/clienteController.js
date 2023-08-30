@@ -47,6 +47,24 @@ server.post('/cliente', async (req, resp) => {
 
     try {
         const cliente = req.body;
+        //let check = await consulta();
+
+        console.log(cliente.email)
+
+        if(!cliente.cliente)
+        throw new Error ("Nome é obrigatório");
+
+        if(!cliente.email)
+        throw new Error ("Email é obrigatório");
+
+        if(!cliente.telefone)
+        throw new Error ("Telefone é obrigatório");
+
+        if(!cliente.cpf)
+        throw new Error ("CPF é obrigatório");
+
+        if(!cliente.cnh)
+        throw new Error ("CNH é obrigatório");
 
         const clienteInserido = await inserirCliente(cliente);
 

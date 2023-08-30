@@ -89,6 +89,7 @@ export async function editarVeiculo(veiculo, id){
             NM_MARCA = ?,
             DT_ANO = ?,
             DS_PLACA = ?
+            WHERE ID_VEICULO = ?
 
     `
 
